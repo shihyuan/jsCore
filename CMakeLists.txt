@@ -36,6 +36,10 @@ set(CMAKE_CXX_FLAGS_RELEASE "-g -Wall -Wno-deprecated -O2 -finline-functions -DN
 set(CMAKE_CXX_FLAGS_DEBUG "-g -Wno-deprecated")
 set(CUDA_NVCC_FLAGS ${CUDA_NVCC_FLAGS};-gencode arch=compute_20,code=sm_20 -gencode arch=compute_30,code=sm_30 -gencode arch=compute_35,code=\"sm_35,compute_35\")
 
+# # only necessary if you wish to create a lib
+# set(CUDA_ATTACH_VS_BUILD_RULE_TO_CUDA_FILE OFF)
+# set(BUILD_SHARED_LIBS ON)
+
 
 catkin_package(
   INCLUDE_DIRS include
@@ -57,6 +61,7 @@ cuda_add_library(jsCore SHARED
   ./cuda/copy_kernel.cu
   ./cuda/choiceMult_kernel.cu
   )
+# target_link_libraries(jsCore ${catkin_LIBRARIES})
 
 cuda_add_executable(testReduction
   ./src/testReduction.cpp
